@@ -10,7 +10,7 @@ public class AllSums {
 
     public int between(int i, int j) {
         if (cache == null) buildCache();
-        return cache[i][j];
+        return cache[i][j-1];
     }
 
     private void buildCache() {
