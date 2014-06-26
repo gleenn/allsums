@@ -7,4 +7,9 @@ public class Add implements Operation<Integer>
         counter.increment();
         return a + b;
     }
+
+    @Override
+    public Integer getIdentity() {
+        return 0;
+    }
 }

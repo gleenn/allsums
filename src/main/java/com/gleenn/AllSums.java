@@ -1,9 +1,9 @@
 package com.gleenn;
 
 public class AllSums {
-    private Operation<Integer> operation;
+    private Operation<Integer> add;
     protected int[] values;
-    protected int[][] cache;
+    protected int[] cache;
     protected Counter counter;
 
     public AllSums(int[] values) {
@@ -11,25 +11,21 @@ public class AllSums {
     }
 
     protected void initialize() {
-        this.operation = new Add();
+        this.add = new Add();
         this.counter = new Counter();
-        this.cache = new int[values.length][values.length];
+        this.cache = new int[values.length + 1];
+        this.cache[0] = add.getIdentity();
     }
 
-    public int between(int i, int j) {
+    public int valueUpTo(int i) {
         if (cache == null) buildCache();
-        return cache[i][j-1];
+        return cache[i];
     }
 
     protected void buildCache() {
         initialize();
-        for (int i = 0; i < values.length - 1; i++) {
-            for (int j = i; j < values.length; j++) {
-                for(int k=i; k<=j; k++) {
-                    cache[i][j] = operation.execute(counter, cache[i][j], values[k]);
-                }
-            }
+        for (int i = 1; i <= values.length; i++) {
+            cache[i] = add.execute(counter, cache[i - 1], values[i - 1]);
         }
     }
-
 }
