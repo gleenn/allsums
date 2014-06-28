@@ -1,6 +1,7 @@
 package com.gleenn;
 
-import static java.lang.Integer.numberOfLeadingZeros;
+import static com.gleenn.Maff.logB2;
+import static com.gleenn.Maff.twoPow;
 
 public class QuickAllSums extends AllSums {
 
@@ -12,14 +13,6 @@ public class QuickAllSums extends AllSums {
         super(values);
         n = values.length;
         steps = logB2(n) - 1;
-    }
-
-    public static int logB2(int value) {
-        return Integer.SIZE - numberOfLeadingZeros(value) - 1;
-    }
-
-    public static int twoPow(int d) {
-        return 1 << d;
     }
 
     public int[] sweepUp() {
@@ -36,20 +29,13 @@ public class QuickAllSums extends AllSums {
     }
 
     public int[] sweepDown() {
-//          a[n − 1] ← 0 % Set the identity
-//          for d from (lg n) − 1 downto 0
-//              in parallel for i from 0 to n − 1 by 2^d+1
-//                  t ← a[i + 2d − 1]                     % Save in temporary
-//                  a[i + 2d − 1] ← a[i + 2d+1 − 1]       % Set left child
-//                  a[i + 2d+1 − 1] ← t + a[i + 2d+1 − 1] % Set right child
-
         values[n - 1] = add.getIdentity();
         for(int d = steps; d >= 0; d--) {
             //parallel
-            for(int i = 0; i <= n - 1; i += twoPow(d+1)) {
+            for(int i = 0; i <= n - 1; i += twoPow(d + 1)) {
                 int temp = values[i + twoPow(d) - 1];
-                values[i + twoPow(d) - 1] = values[i + twoPow(d+1) - 1];
-                values[i + twoPow(d+1) - 1] = temp + values[i + twoPow(d+1) - 1];
+                values[i + twoPow(d) - 1] = values[i + twoPow(d + 1) - 1];
+                values[i + twoPow(d + 1) - 1] = temp + values[i + twoPow(d + 1) - 1];
             }
         }
 
