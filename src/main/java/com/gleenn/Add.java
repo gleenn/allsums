@@ -1,10 +1,14 @@
 package com.gleenn;
 
-public class Add implements Operation<Integer>
+public class Add extends Operation<Integer>
 {
+    public Add(Counter counter) {
+        super(counter);
+    }
+
     @Override
-    public Integer execute(Counter counter, Integer a, Integer b) {
-        counter.increment();
+    public Integer execute(Integer a, Integer b) {
+        getCounter().increment();
         return a + b;
     }
 
@@ -12,4 +16,6 @@ public class Add implements Operation<Integer>
     public Integer getIdentity() {
         return 0;
     }
+
+
 }
