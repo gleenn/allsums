@@ -10,12 +10,12 @@ public class QuickAllSumsTest {
     @Test
     public void sweepUp_returnsArrayWithPartialSumsFilteredUp() {
         int[] expected = {3, 4, 7, 11, 4, 5, 6, 25};
-        assertThat(new QuickAllSums(values).sweepUp()).isEqualTo(expected);
+        assertThat(new QuickAllSums(values.clone()).sweepUp()).isEqualTo(expected);
     }
 
     @Test
     public void sweepDown_returnsArrayWithAllSums() {
-        QuickAllSums quickAllSums = new QuickAllSums(values);
+        QuickAllSums quickAllSums = new QuickAllSums(values.clone());
         quickAllSums.sweepUp();
         int[] expected = {0, 3, 4, 11, 11, 15, 16, 22};
         assertThat(quickAllSums.sweepDown()).isEqualTo(expected);

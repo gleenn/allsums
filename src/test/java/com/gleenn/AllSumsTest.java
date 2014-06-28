@@ -21,9 +21,6 @@ public class AllSumsTest {
     }
 
     private void testSums(AllSums allSums) {
-        int[] sums = new int[values.length + 1];
-        for (int i = 0; i <= values.length; i++) sums[i] = allSums.valueUpTo(i);
-
-        assertThat(sums).isEqualTo(new int[]{0, 1, 3, 6, 10, 15, 21, 28, 36});
+        assertThat(allSums.getSums()).isEqualTo(new int[]{1, 3, 6, 10, 15, 21, 28, 36});
     }
 }
