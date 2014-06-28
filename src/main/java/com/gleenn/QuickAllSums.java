@@ -1,50 +1,21 @@
 package com.gleenn;
 
 public class QuickAllSums extends AllSums {
+
+    private static final int NUM_PROCESSORS = 4;
+
+    private Node<Integer> root;
+
     public QuickAllSums(int[] values) {
         super(values);
-    }
-
-    static class Node<T> {
-        private Node<T> left;
-        private Node<T> right;
-        private T value;
-
-        public Node(T value) {
-            this.value = value;
-        }
-
-        public Node<T> getLeft() {
-            return left;
-        }
-
-        public void setLeft(Node<T> left) {
-            this.left = left;
-        }
-
-        public Node<T> getRight() {
-            return right;
-        }
-
-        public void setRight(Node<T> right) {
-            this.right = right;
-        }
-
-        public T getValue() {
-            return value;
-        }
-
-        public void setValue(T value) {
-            this.value = value;
-        }
     }
 
     @Override
     public void buildCache() {
         initialize();
 
-        sweepDown();
         sweepUp();
+        sweepDown();
     }
 
     public void sweepUp() {
@@ -54,6 +25,10 @@ public class QuickAllSums extends AllSums {
 //              sum[i] ← sum[i] + a[(n/p)i + j]
 //          result ← +-reduce(sum)
 
+          for(int i=0; i<NUM_PROCESSORS; i++) {
+              cache[i] = values[(values.length/NUM_PROCESSORS) * i];
+
+          }
     }
 
     public void sweepDown() {

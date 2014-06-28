@@ -1,6 +1,5 @@
 package com.gleenn;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.fest.assertions.Assertions.assertThat;
@@ -16,7 +15,6 @@ public class AllSumsTest {
     }
 
     @Test
-    @Ignore
     public void sumFor_returnsSumBetweenIndices_forQuickToo() {
         AllSums allSums = new QuickAllSums(values);
         testSums(allSums);
